@@ -60,7 +60,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 //   next();
 // });
 
-const createBookingCheckoutWithWebhook = async (session) => {
+const createBookingCheckout = async (session) => {
   const tour = session.client_reference_id;
   const user = (await User.findOne({ email: session.customer_email })).id;
   const price = session.amount_total[0].amount / 100;
@@ -83,7 +83,7 @@ exports.webhookCheckout = (req, res, next) => {
   }
 
   if (event.type === 'checkout.session.completed')
-    createBookingCheckoutWithWebhook(event.data.object);
+    createBookingCheckout(event.data.object);
 
   res.status(200).json({ received: true });
 };
