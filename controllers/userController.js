@@ -99,8 +99,8 @@ exports.getMe = (req, res, next) => {
 
 //6. Update Me middleware (Allows a user to update his own data)
 exports.updateMe = catchAsync(async (req, res, next) => {
-  console.log(req.file);
-  console.log(req.body);
+  // console.log(req.file);
+  // console.log(req.body);
 
   //1) Throw an error if user tries to updates the password (Basically POSTed password data )
   if (req.body.password || req.body.passwordConfirm) {

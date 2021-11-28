@@ -190,11 +190,11 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
-tourSchema.post(/^find/, function (docs, next) {
-  //Calculate how much time does the query took
-  console.log(`Query Took ${Date.now() - this.start} Milliseconds!`);
-  next();
-});
+// tourSchema.post(/^find/, function (docs, next) {
+//   //Calculate how much time does the query took
+//   console.log(`Query Took ${Date.now() - this.start} Milliseconds!`);
+//   next();
+// });
 
 //AGGREGATION MIDDLEWARE
 //Exclude the secret tour from the results of aggregation piplelines

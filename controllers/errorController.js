@@ -16,7 +16,7 @@ const handleDuplicateFieldsDB = (err) => {
 
 const handleValidationErrorDB = (err) => {
   const errors = Object.values(err.errors).map((el) => el.message);
-  console.log(errors);
+  // console.log(errors);
 
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new AppError(message, 400);
@@ -72,7 +72,7 @@ const sendProdError = (err, req, res) => {
 
   //RENDERED VIEWS ERROR
   if (err.isOperational) {
-    console.log(err);
+    // console.log(err);
     return res.status(err.statusCode).render('error', {
       title: 'Something went wrong!',
       msg: err.message,
@@ -103,7 +103,7 @@ module.exports = (err, req, res, next) => {
     error.name = err.name;
     error.message = err.message;
 
-    // console.log('Error Name is 🔥🔥', error.name);
+    console.log('Error Name is 🔥', error.name);
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateFieldsDB(error);

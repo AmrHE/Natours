@@ -52,8 +52,6 @@ if (userDataForm) {
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
 
-    console.log(form);
-
     await updatesSettings(form, 'data');
     window.location.reload();
   });
@@ -81,13 +79,11 @@ if (userPasswordForm) {
 }
 
 if (bookBtn) {
-  console.log('Hello from book now btn');
   bookBtn.addEventListener('click', (e) => {
     e.target.textContent = 'Processing...';
     // const tourId = e.targer.dataset.tourId;
 
     const tourId = e.target.dataset.tourId;
-    console.log(tourId);
 
     bookTour(tourId);
   });

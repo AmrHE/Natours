@@ -3,8 +3,8 @@ const dotenv = require('dotenv');
 
 //Global "Uncaught Exception" Handler //This handler should be at the top of our code
 process.on('uncaughtException', (err) => {
+  console.log('UNCAUGHT EXCEPTION! 🔥 Shutting Down...');
   console.log('Name🔥: ', err.name, 'Message🔥: ', err.message);
-  console.log('UNHANDELED REJECTION! 🔥 Shutting Down...');
 
   process.exit(1);
 });
@@ -30,7 +30,7 @@ mongoose
 //1. Start the server
 const port = process.env.PORT;
 const server = app.listen(port, () => {
-  console.log('app running on port 3000');
+  console.log(`app running on port ${port}`);
 });
 
 //Global "Unhandled Promise Rejection" Handler
