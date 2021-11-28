@@ -12,6 +12,7 @@ const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const bookingController = require('./controllers/bookingController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -50,7 +51,7 @@ app.use(
       baseUri: ["'self'"],
       fontSrc: ["'self'", 'https:', 'http:', 'data:'],
       scriptSrc: ["'self'", 'https:', 'http:', 'blob:'],
-      styleSrc: ["'self'", 'https:', 'http:', 'unsafe-inline'],
+      styleSrc: ["'self'", 'https:', 'http:', "'unsafe-inline'"],
     },
   })
 );
@@ -70,6 +71,16 @@ const limiter = rateLimit({
   message: 'Too many request from this IP, Please try again in an hour!',
 });
 app.use('/api', limiter);
+
+//Stripe webhook route
+//We defined that here because we need th response to be raw and not json formatted
+//If this routes hits the below middleware it will be automatically parsed into JSON
+//So that's why we specified this here
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout
+);
 
 // Body-parser, reading data from the body into req.body
 app.use(express.json({ limit: '10kb' }));
